@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Riku Tenko · Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -13,6 +15,7 @@
   --muted:#94a3b8;
   --primary:#38bdf8;
   --border:rgba(255,255,255,0.08);
+  --glow:rgba(56,189,248,0.25);
 }
 
 body.light{
@@ -21,42 +24,50 @@ body.light{
   --text:#0f172a;
   --muted:#475569;
   --border:#e5e7eb;
+  --glow:rgba(56,189,248,0.12);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:Arial, sans-serif;
+  font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
-  transition:0.3s;
 }
 
-/* NAV FIX (your issue was spacing + sticky behavior) */
+/* NAV */
 header{
   position:sticky;
   top:0;
   z-index:1000;
-  background:rgba(10,15,30,0.9);
-  backdrop-filter:blur(10px);
+  background:rgba(10,15,30,0.75);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
 }
 
 nav{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:15px 20px;
+  align-items:center;
 }
+
+nav a{
+  color:var(--text);
+  margin-left:15px;
+  text-decoration:none;
+}
+
+nav a:hover{color:var(--primary);}
 
 /* HERO */
 .hero{
   text-align:center;
-  padding:100px 20px;
+  padding:110px 20px 80px;
 }
 
-h1{font-size:3rem;}
+.hero h1{font-size:2.8rem;}
 
 .typing{
   color:var(--primary);
@@ -71,90 +82,65 @@ h1{font-size:3rem;}
   padding:10px 18px;
   border-radius:20px;
   background:var(--primary);
-  color:black;
-  font-weight:bold;
+  color:#000;
+  font-weight:600;
   text-decoration:none;
 }
+
+/* LAYOUT */
+section{
+  padding:80px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+h2{margin-bottom:20px;}
 
 /* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:20px;
-  max-width:1000px;
-  margin:auto;
 }
 
-/* NORMAL CARDS (FIXED animation conflict) */
+/* CARDS */
 .card{
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:15px;
+  border-radius:16px;
   padding:20px;
+  transform:translateY(30px);
   opacity:0;
-  transform:translateY(25px);
   transition:0.5s ease;
 }
 
 .card.show{
-  opacity:1;
   transform:translateY(0);
+  opacity:1;
 }
 
 .card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-8px);
   border-color:var(--primary);
+  box-shadow:0 20px 40px rgba(56,189,248,0.15);
 }
 
-/* FLIP CARDS (PROJECTS FIXED) */
-.project-card{
-  perspective:1000px;
-}
-
-.project-inner{
-  position:relative;
-  width:100%;
-  height:220px;
-  transition:transform 0.6s;
-  transform-style:preserve-3d;
-}
-
-.project-card:hover .project-inner{
-  transform:rotateY(180deg);
-}
-
-.project-front,
-.project-back{
-  position:absolute;
-  width:100%;
-  height:100%;
-  backface-visibility:hidden;
-  border-radius:15px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  padding:20px;
+/* PROJECT THUMBNAILS */
+.project-thumb{
+  height:120px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#1e293b,#0f172a);
   display:flex;
-  flex-direction:column;
+  align-items:center;
   justify-content:center;
-}
-
-.project-back{
-  transform:rotateY(180deg);
-}
-
-/* SECTION */
-section{
-  padding:80px 20px;
-  max-width:1000px;
-  margin:auto;
+  font-size:2rem;
+  margin-bottom:10px;
+  border:1px solid var(--border);
 }
 
 /* CONTACT */
-.contact-box{
-  background:var(--surface);
-  padding:20px;
-  border-radius:15px;
-  border:1px solid var(--border);
+.contact{
+  text-align:center;
 }
 
 /* FOOTER */
@@ -163,134 +149,139 @@ footer{
   padding:30px;
   color:var(--muted);
 }
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero h1{font-size:2rem;}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <nav>
-    <strong>Riku Tenko</strong>
-    <div>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-      <button onclick="toggleTheme()">Theme</button>
-    </div>
-  </nav>
+<nav>
+<strong>Riku Tenko</strong>
+<div>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
 </header>
 
 <section class="hero">
-  <h1>Hi, I'm Riku Tenko</h1>
-  <div class="typing" id="typing"></div>
-  <a class="btn" href="#projects">View Projects</a>
+<h1>Hi, I'm Riku Tenko</h1>
+<div class="typing" id="typing"></div>
+<a class="btn" href="#projects">View Projects</a>
 </section>
 
 <section id="about">
-  <h2>About</h2>
-  <p>
-    Student web developer focused on clean UI, interactive websites,
-    and building real-world frontend projects.
-  </p>
+<h2>About Me</h2>
+<p>
+I am a student web developer focused on building clean, responsive, and user-friendly websites.  
+I specialize in frontend development using HTML, CSS, and JavaScript, and I am currently improving my backend and AI integration skills.  
+I enjoy turning ideas into real working projects and continuously improving my design and development workflow.
+</p>
 </section>
 
-<section id="skills">
-  <h2>Skills</h2>
+<section id="Development skills">
+<h2>DevelopmentSkills</h2>
+
+<div class="grid">
+
+<div class="card show">Frontend: HTML / CSS / JavaScript</div>
+<div class="card show">UI/UX Design Basics</div>
+<div class="card show">Responsive Web Design</div>
+<div class="card show">Python (Basics)</div>
+<div class="card show">.NET (Basics)</div>
+<div class="card show">Git & GitHub</div>
+<div class="card show">AI Prompting</div>
+
+</div>
+</section>
+
+<section id="content-skills">
+  <h2>Content & Writing Skills</h2>
+
   <div class="grid">
-    <div class="card show">HTML / CSS / JS</div>
-    <div class="card show">UI Design</div>
-    <div class="card show">Python Basics</div>
+    <div class="card show">Blog Writing</div>
+    <div class="card show">Article Writing</div>
+    <div class="card show">Website Copywriting</div>
+    <div class="card show">Product Descriptions</div>
+    <div class="card show">Story Writing</div>
+    <div class="card show">Basic SEO Writing</div>
   </div>
 </section>
 
 <section id="projects">
-  <h2>Projects</h2>
+<h2>Projects</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="project-card">
-      <div class="project-inner">
-        <div class="project-front">
-          <h3>Zimelia AI</h3>
-          <p>AI chat UI system</p>
-        </div>
-        <div class="project-back">
-          <p>Frontend AI Interface</p>
-          <a class="btn" href="#">Open</a>
-        </div>
-      </div>
-    </div>
+<div class="card">
+<div class="project-thumb">🤖</div>
+<h3>Zimelia AI</h3>
+<p>AI chatbot UI with personality system.</p>
+<a class="btn" href="#">Live Demo</a>
+</div>
 
-    <div class="project-card">
-      <div class="project-inner">
-        <div class="project-front">
-          <h3>To-Do App</h3>
-          <p>Task manager system</p>
-        </div>
-        <div class="project-back">
-          <p>LocalStorage app</p>
-          <a class="btn" href="#">Open</a>
-        </div>
-      </div>
-    </div>
+<div class="card">
+<div class="project-thumb">✔</div>
+<h3>To-Do App</h3>
+<p>Task manager with local storage features.</p>
+<a class="btn" href="#">View</a>
+</div>
 
-    <div class="project-card">
-      <div class="project-inner">
-        <div class="project-front">
-          <h3>Web Builder</h3>
-          <p>Website generator tool</p>
-        </div>
-        <div class="project-back">
-          <p>Mini SaaS project</p>
-          <a class="btn" href="#">Open</a>
-        </div>
-      </div>
-    </div>
+<div class="card">
+<div class="project-thumb">📝</div>
+<h3>Blog Platform</h3>
+<p>Simple blog system for posts and writing.</p>
+<a class="btn" href="#">Read</a>
+</div>
 
-  </div>
+<div class="card">
+<div class="project-thumb">⚙</div>
+<h3>Web Builder</h3>
+<p>Mini website generator tool.</p>
+<a class="btn" href="#">Open</a>
+</div>
+
+</div>
 </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-box">
-    <p>Email: rikutenko.dev@example.com</p>
-  </div>
+<section id="contact" class="contact">
+<h2>Contact</h2>
+<p>Email: guest67483@gmail.com</p>
 </section>
 
 <footer>
-  © 2026 Riku Tenko
+© 2026 Riku Tenko · Portfolio
 </footer>
 
 <script>
-// theme
-function toggleTheme(){
-  document.body.classList.toggle('light');
-}
-
 // typing animation
-const text="Student Developer • Web Builder • UI Designer";
-let i=0;
+const text = "Student Developer • Web Designer • AI Explorer";
+let i = 0;
 
 function type(){
   if(i < text.length){
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(type,60);
+    setTimeout(type, 60);
   }
 }
 type();
 
-// scroll animation (ONLY for normal cards)
-const cards=document.querySelectorAll('.card');
-const observer=new IntersectionObserver(entries=>{
+// scroll animation
+const cards = document.querySelectorAll(".card");
+const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('show');
-    }
+    if(e.isIntersecting) e.target.classList.add("show");
   });
 });
-cards.forEach(c=>observer.observe(c));
+cards.forEach(c=>obs.observe(c));
 </script>
 
 </body>
