@@ -154,10 +154,47 @@ footer{
 @media(max-width:600px){
   .hero h1{font-size:2rem;}
 }
+
+/* === PREMIUM GLOW BACKGROUND === */
+.glow{
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle, rgba(56,189,248,0.25), transparent 70%);
+  filter:blur(60px);
+  z-index:-2;
+  animation:float 8s ease-in-out infinite;
+}
+
+.g1{top:-150px;left:-150px;}
+.g2{bottom:-150px;right:-150px;animation-delay:2s;}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(40px)}
+}
+
+/* smoother feel */
+body{
+  scroll-behavior:smooth;
+  background:#0b1020;
+}
+
+/* nicer cards */
+.card{
+  transition:0.4s ease;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 25px 50px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 
 <body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
 
 <header>
 <nav>
